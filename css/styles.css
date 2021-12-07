@@ -1,0 +1,9 @@
+body {
+  background-color: #e5e5f7;
+  background-image: radial-gradient(circle at center center, #f7f045, #e5e5f7), repeating-radial-gradient(circle at center center, #f7f045, #f7f045, 9px, transparent 18px, transparent 9px);
+  background-blend-mode: multiply;
+}
+  
+.card {
+  background-color:rgb(93, 158, 95);
+}

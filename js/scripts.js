@@ -3,24 +3,20 @@ function Player(name, score, active){
   this.name = name;
   this.score = score;
   this.active = active;
-}
-
+};
 Player.prototype.addScore = function(number){
   this.score = this.score + number;
-}
-
+};
 function rollDice(){
   return Math.round(Math.random() * 5) + 1;
-}
-
+};
 function updateScore(number, player){
   if(number === 1){
     player.score = 0;
   } else{
     player.addScore(number);
   }
-}
-
+};
 function changeRound(player1, player2){
   if(player1.active === true){
     player1.active = false;
@@ -29,8 +25,7 @@ function changeRound(player1, player2){
     player1.active = true;
     player2.active = false;
   }
-}
-
+};
 function checkActivePlayer(player1, player2){
   if(player1.active === true){
     return player1;
@@ -38,6 +33,12 @@ function checkActivePlayer(player1, player2){
     return player2;
   }
 }
+
+function emptyForm(){
+  $("#roll").html("");
+  $("#current-score").html("");
+};
+//UI Logic--------------------------------------------------------
 
 $(document).ready(function(){
   let dice = 0;
@@ -54,40 +55,33 @@ $(document).ready(function(){
       if(activePlayer.name === "player1"){
         player1.score = 0;
         $("#player1-score").append("Round " + roundCounter + " score: " + activePlayer.score + "<br>");
-        $("#roll").html("");
-        $("#current-score").html("");
+        emptyForm();
       } else if(activePlayer.name === "player2"){
         player2.score = 0;
         $("#player2-score").append("Round " + roundCounter + " score: " + activePlayer.score + "<br>")
-        $("#roll").html("");
-        $("#current-score").html("");
+        emptyForm();
         roundCounter++;
       }
       activePlayer = checkActivePlayer(player1, player2);
       $("#current-player-name").html("The current player is: " + activePlayer.name);
-
-
     }
     updateScore(dice, activePlayer);
     $("#current-score").html("Your current score is: " + activePlayer.score);
   })
+
   $("#finish").click(function(){
     if(activePlayer.name === "player1"){
       $("#player1-score").append("Round " + roundCounter + " score: " + activePlayer.score + "<br>");
-      $("#roll").html("");
-      $("#current-score").html("");
+      emptyForm();
       player1.score = 0;
     } else if(activePlayer.name === "player2"){
       $("#player2-score").append("Round " + roundCounter + " score: " + activePlayer.score + "<br>")
-      $("#roll").html("");
-      $("#current-score").html("");
+      emptyForm();
       player2.score = 0;
       roundCounter++;
     }
     changeRound(player1, player2);
     activePlayer = checkActivePlayer(player1, player2);
     $("#current-player-name").html("The current player is: " + activePlayer.name);
-
   })
 })
-
